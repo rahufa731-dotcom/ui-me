@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LUMINA — Next-Generation Intelligent Digital Assistant (Black Theme)</title>
+  <meta name="description" content="A futuristic, playful and vibrant Next-Generation AI Assistant UI with bold neon accents, obsidian black theme, soft rounded squircle geometry, and multi-screen workflows.">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              violet: '#7c3aed',
+              fuchsia: '#ec4899',
+              coral: '#ff6b6b',
+              amber: '#f59e0b',
+              mint: '#10b981',
+              cyan: '#06b6d4',
+              obsidian: '#08090e',
+              surface: '#10121c',
+              surfaceElevated: '#161926'
+            }
+          },
+          borderRadius: {
+            'squircle-sm': '18px',
+            'squircle': '28px',
+            'squircle-lg': '36px'
+          },
+          boxShadow: {
+            'glow-violet': '0 0 35px rgba(124, 58, 237, 0.45)',
+            'glow-fuchsia': '0 0 35px rgba(236, 72, 153, 0.45)',
+            'glow-cyan': '0 0 35px rgba(6, 182, 212, 0.45)',
+            'playful': '0 20px 45px -12px rgba(0, 0, 0, 0.8)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom AI UI Styles & Fonts -->
+  <link rel="stylesheet" href="css/ai-ui.css">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body id="lumina-app-root" class="h-full bg-[#08090e] text-slate-100 antialiased flex flex-col overflow-hidden selection:bg-fuchsia-500 selection:text-white">
+
+  <!-- Ambient Animated Gradient Mesh Background (Dark Neon) -->
+  <div class="fixed inset-0 ambient-mesh pointer-events-none z-0"></div>
+
+  <!-- ==========================================================================
+       TOP GLOBAL HEADER & APP SHELL BAR (OBSIDIAN GLASS)
+       ========================================================================== -->
+  <header class="relative z-30 shrink-0 px-4 sm:px-6 py-3 border-b border-white/10 bg-[#0c0e17]/85 backdrop-blur-2xl flex items-center justify-between gap-4">
+    <!-- Brand Crest & Intelligence Badge -->
+    <div class="flex items-center gap-3">
+      <div class="relative w-10 h-10 rounded-2xl bg-gradient-to-tr from-violet-600 via-fuchsia-500 to-amber-400 p-0.5 shadow-lg shadow-violet-500/30">
+        <div class="w-full h-full rounded-[14px] bg-[#0c0d16] flex items-center justify-center">
+          <i data-lucide="sparkles" class="w-5 h-5 text-amber-300 animate-spin" style="animation-duration: 12s;"></i>
+        </div>
+        <span class="absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-emerald-500 border-2 border-[#0c0d16] rounded-full"></span>
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="font-display font-extrabold text-xl tracking-tight text-white">LUMINA</span>
+          <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow-sm shadow-fuchsia-500/25">
+            OS 3.8
+          </span>
+        </div>
+        <div class="text-[11px] text-slate-400 font-medium flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+          <span>Adaptive Neural Engine • Obsidian Dark</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Center Navigation Tabs (Screen Switcher) -->
+    <nav class="hidden md:flex items-center bg-[#131625]/90 p-1.5 rounded-full border border-white/10 backdrop-blur-md shadow-inner gap-1">
+      <button data-screen-target="dashboard" class="px-4 py-2 rounded-full text-xs font-bold transition-all bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow-lg shadow-violet-600/40 scale-[1.03] flex items-center gap-2">
+        <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i>
+        <span>Dashboard</span>
+      </button>
+      <button data-screen-target="chat" class="px-4 py-2 rounded-full text-xs font-bold transition-all text-slate-300 hover:text-white hover:bg-white/10 flex items-center gap-2">
+        <i data-lucide="message-square" class="w-3.5 h-3.5"></i>
+        <span>AI Chat</span>
+      </button>
+      <button data-screen-target="history" class="px-4 py-2 rounded-full text-xs font-bold transition-all text-slate-300 hover:text-white hover:bg-white/10 flex items-center gap-2">
+        <i data-lucide="brain-circuit" class="w-3.5 h-3.5"></i>
+        <span>Memory & History</span>
+      </button>
+      <button data-screen-target="results" class="px-4 py-2 rounded-full text-xs font-bold transition-all text-slate-300 hover:text-white hover:bg-white/10 flex items-center gap-2">
+        <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+        <span>Results Studio</span>
+      </button>
+      <button data-screen-target="studio" class="px-4 py-2 rounded-full text-xs font-bold transition-all text-slate-300 hover:text-white hover:bg-white/10 flex items-center gap-2">
+        <i data-lucide="network" class="w-3.5 h-3.5"></i>
+        <span>Swarm Canvas</span>
+      </button>
+      <button data-screen-target="settings" class="px-4 py-2 rounded-full text-xs font-bold transition-all text-slate-300 hover:text-white hover:bg-white/10 flex items-center gap-2">
+        <i data-lucide="sliders" class="w-3.5 h-3.5"></i>
+        <span>Settings</span>
+      </button>
+    </nav>
+
+    <!-- Right Quick Actions: Concept Mockup + UI Specs + Voice Orb + Profile -->
+    <div class="flex items-center gap-3">
+      <!-- Concept Mockup Trigger -->
+      <button id="open-mockup-modal-btn" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-bold transition-all">
+        <i data-lucide="image" class="w-3.5 h-3.5 text-amber-400"></i>
+        <span>Concept Mockup</span>
+      </button>
+
+      <!-- Design System UI Inspector Trigger -->
+      <button id="open-design-system-btn" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-fuchsia-500/20 hover:bg-fuchsia-500/30 text-fuchsia-300 border border-fuchsia-500/40 text-xs font-bold transition-all">
+        <i data-lucide="palette" class="w-3.5 h-3.5"></i>
+        <span>UI Specs</span>
+      </button>
+
+      <!-- Simulated Voice Waveform Trigger -->
+      <button id="voice-mode-toggle" class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-violet-500/20 hover:bg-violet-500/30 text-violet-300 border border-violet-500/40 text-xs font-bold transition-all">
+        <div class="flex items-center gap-0.5 h-3.5">
+          <span class="wave-bar"></span>
+          <span class="wave-bar"></span>
+          <span class="wave-bar"></span>
+        </div>
+        <span id="voice-btn-label">Voice Ambient</span>
+      </button>
+
+      <!-- Back to College Portal link -->
+      <a href="index.html" class="p-2 rounded-2xl bg-white/10 hover:bg-white/20 text-slate-300 transition-all text-xs font-semibold flex items-center gap-1" title="Back to DNAC Portal">
+        <i data-lucide="home" class="w-4 h-4"></i>
+      </a>
+
+      <!-- User Avatar -->
+      <div class="w-9 h-9 rounded-2xl bg-gradient-to-tr from-amber-400 to-rose-500 p-0.5 shadow-md">
+        <div class="w-full h-full rounded-[14px] bg-[#0c0d16] flex items-center justify-center text-white text-xs font-extrabold">
+          AX
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Screen Navigation Bar (Bottom Dark Glass) -->
+  <div class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#0c0e17]/95 backdrop-blur-xl border-t border-white/10 p-2 flex justify-around">
+    <button data-screen-target="dashboard" class="p-2 text-violet-400 flex flex-col items-center gap-1 text-[10px] font-bold">
+      <i data-lucide="layout-grid" class="w-5 h-5"></i>
+      <span>Home</span>
+    </button>
+    <button data-screen-target="chat" class="p-2 text-slate-400 hover:text-violet-400 flex flex-col items-center gap-1 text-[10px] font-bold">
+      <i data-lucide="message-square" class="w-5 h-5"></i>
+      <span>Chat</span>
+    </button>
+    <button data-screen-target="history" class="p-2 text-slate-400 hover:text-violet-400 flex flex-col items-center gap-1 text-[10px] font-bold">
+      <i data-lucide="brain-circuit" class="w-5 h-5"></i>
+      <span>Memory</span>
+    </button>
+    <button data-screen-target="results" class="p-2 text-slate-400 hover:text-violet-400 flex flex-col items-center gap-1 text-[10px] font-bold">
+      <i data-lucide="sparkles" class="w-5 h-5"></i>
+      <span>Results</span>
+    </button>
+    <button data-screen-target="studio" class="p-2 text-slate-400 hover:text-violet-400 flex flex-col items-center gap-1 text-[10px] font-bold">
+      <i data-lucide="network" class="w-5 h-5"></i>
+      <span>Swarm</span>
+    </button>
+    <button data-screen-target="settings" class="p-2 text-slate-400 hover:text-violet-400 flex flex-col items-center gap-1 text-[10px] font-bold">
+      <i data-lucide="sliders" class="w-5 h-5"></i>
+      <span>Settings</span>
+    </button>
+  </div>
+
+  <!-- ==========================================================================
+       MAIN APP WORKSPACE (Dark Theme)
+       ========================================================================== -->
+  <main id="main-workspace" class="relative z-10 flex-1 overflow-y-auto overflow-x-hidden p-4 sm:p-6 lg:p-8 pb-20 md:pb-8">
+
+    <!-- ------------------------------------------------------------------------
+         SCREEN 1: AI ASSISTANT HOME / DASHBOARD (DARK)
+         ------------------------------------------------------------------------ -->
+    <div id="screen-dashboard" class="app-screen-container max-w-7xl mx-auto space-y-8 animate-in fade-in-50 duration-300">
+      
+      <!-- Hero Bento Section: Living AI Orb + Executive Briefing -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+        
+        <!-- Left: Interactive AI Core Orb Card (Deep Glass) -->
+        <div class="lg:col-span-5 squircle-card p-8 flex flex-col items-center justify-between text-center relative overflow-hidden bg-gradient-to-b from-[#131626]/90 via-[#0e101d]/90 to-[#161327]/90 border border-white/10 shadow-2xl">
+          <!-- Ambient glowing highlights -->
+          <div class="absolute -top-24 -left-24 w-52 h-52 bg-violet-600/25 rounded-full blur-3xl pointer-events-none"></div>
+          <div class="absolute -bottom-24 -right-24 w-52 h-52 bg-fuchsia-600/25 rounded-full blur-3xl pointer-events-none"></div>
+
+          <!-- Top status chips -->
+          <div class="w-full flex items-center justify-between text-xs">
+            <span class="px-3 py-1 rounded-full bg-violet-500/20 text-violet-300 border border-violet-500/30 font-bold flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              Neural Core Online
+            </span>
+            <span class="font-mono text-slate-400 text-[11px]">Gemini 3.8 Ultra</span>
+          </div>
+
+          <!-- Living 3D Animated AI Orb Core -->
+          <div class="relative my-8 py-4 flex items-center justify-center">
+            <div class="orb-ring"></div>
+            <div class="orb-ring-2"></div>
+            <div class="ai-orb-core w-44 h-44 flex items-center justify-center cursor-pointer transform hover:scale-105 transition-transform" title="Click to talk to Lumina">
+              <div class="w-20 h-20 rounded-full bg-white/15 backdrop-blur-md flex items-center justify-center border border-white/40">
+                <i data-lucide="sparkles" class="w-8 h-8 text-white drop-shadow-md"></i>
+              </div>
+            </div>
+            <!-- Floating playful badges -->
+            <div class="absolute -top-2 -right-4 px-3 py-1 rounded-full bg-[#181a29] border border-violet-500/40 text-xs font-bold text-violet-300 shadow-xl shadow-violet-500/20 animate-float">
+              🎨 Creative
+            </div>
+            <div class="absolute -bottom-2 -left-4 px-3 py-1 rounded-full bg-[#181a29] border border-fuchsia-500/40 text-xs font-bold text-fuchsia-300 shadow-xl shadow-fuchsia-500/20 animate-float-delay">
+              ⚡ 99.8% Sync
+            </div>
+          </div>
+
+          <!-- Orb Status & Prompt CTA -->
+          <div class="space-y-3 w-full">
+            <h2 class="font-display font-extrabold text-2xl text-white tracking-tight">
+              Good evening, Alex ✨
+            </h2>
+            <p class="text-xs text-slate-400 max-w-sm mx-auto leading-relaxed">
+              Lumina is actively synthesizing your context. 4 autonomous background workflows completed successfully today.
+            </p>
+            <div class="pt-2 flex items-center justify-center gap-3">
+              <button data-screen-target="chat" class="btn-playful px-6 py-2.5 bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-500 text-white shadow-lg shadow-violet-600/35 text-xs flex items-center gap-2">
+                <i data-lucide="message-circle" class="w-4 h-4"></i>
+                <span>Open Instant Chat</span>
+              </button>
+              <button data-screen-target="studio" class="btn-playful px-5 py-2.5 bg-white/10 hover:bg-white/15 text-white border border-white/15 text-xs flex items-center gap-2 shadow-sm">
+                <i data-lucide="workflow" class="w-4 h-4 text-violet-400"></i>
+                <span>Swarm Canvas</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Daily Intelligence Briefing & Telemetry Bento (Dark) -->
+        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          
+          <!-- Card 1: Executive Briefing -->
+          <div class="squircle-card p-6 flex flex-col justify-between border-l-4 border-l-violet-500 bg-[#121422]/80">
+            <div class="flex items-center justify-between">
+              <div class="w-10 h-10 rounded-2xl bg-violet-500/20 text-violet-300 flex items-center justify-center font-bold border border-violet-500/30">
+                <i data-lucide="newspaper" class="w-5 h-5"></i>
+              </div>
+              <span class="text-[11px] font-bold text-violet-400 bg-violet-500/10 px-2.5 py-1 rounded-full border border-violet-500/20">Updated 12m ago</span>
+            </div>
+            <div class="my-4 space-y-1.5">
+              <h3 class="font-display font-bold text-base text-white">Evening Intelligence Digest</h3>
+              <p class="text-xs text-slate-400 leading-relaxed">
+                Found 3 breakthrough competitor updates in your sector. Synthesized into an actionable matrix ready for review.
+              </p>
+            </div>
+            <button class="quick-prompt-pill text-xs font-bold text-violet-400 hover:text-violet-300 flex items-center gap-1.5 pt-2" data-prompt="Summarize today's competitive intelligence digest with 3 strategic recommendations">
+              <span>Read 2-min brief</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+
+          <!-- Card 2: Autonomous Swarm Activity -->
+          <div class="squircle-card p-6 flex flex-col justify-between border-l-4 border-l-emerald-500 bg-[#121422]/80">
+            <div class="flex items-center justify-between">
+              <div class="w-10 h-10 rounded-2xl bg-emerald-500/20 text-emerald-300 flex items-center justify-center font-bold border border-emerald-500/30">
+                <i data-lucide="cpu" class="w-5 h-5"></i>
+              </div>
+              <span class="text-[11px] font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20">3 Swarms Active</span>
+            </div>
+            <div class="my-4 space-y-1.5">
+              <h3 class="font-display font-bold text-base text-white">Autonomous Agents</h3>
+              <div class="space-y-2 pt-1 text-xs">
+                <div class="flex items-center justify-between text-slate-300">
+                  <span class="flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                    UX Telemetry Auditor
+                  </span>
+                  <span class="font-bold text-emerald-400">92%</span>
+                </div>
+                <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                  <div class="h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full" style="width: 92%"></div>
+                </div>
+              </div>
+            </div>
+            <button data-screen-target="studio" class="text-xs font-bold text-emerald-400 hover:text-emerald-300 flex items-center gap-1.5 pt-2">
+              <span>View swarm pipeline</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+
+          <!-- Card 3: Memory Consolidation -->
+          <div class="squircle-card p-6 flex flex-col justify-between border-l-4 border-l-amber-500 bg-[#121422]/80">
+            <div class="flex items-center justify-between">
+              <div class="w-10 h-10 rounded-2xl bg-amber-500/20 text-amber-300 flex items-center justify-center font-bold border border-amber-500/30">
+                <i data-lucide="database" class="w-5 h-5"></i>
+              </div>
+              <span class="text-[11px] font-bold text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-full border border-amber-500/20">1,420 Nodes</span>
+            </div>
+            <div class="my-4 space-y-1.5">
+              <h3 class="font-display font-bold text-base text-white">Episodic Knowledge Base</h3>
+              <p class="text-xs text-slate-400 leading-relaxed">
+                14 new concepts linked from yesterday's design critiques. Memory compression ratio: 4.8x.
+              </p>
+            </div>
+            <button data-screen-target="history" class="text-xs font-bold text-amber-400 hover:text-amber-300 flex items-center gap-1.5 pt-2">
+              <span>Explore knowledge graph</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+
+          <!-- Card 4: Voice & Vision Multi-Modal Hub -->
+          <div class="squircle-card p-6 flex flex-col justify-between border-l-4 border-l-fuchsia-500 bg-[#121422]/80">
+            <div class="flex items-center justify-between">
+              <div class="w-10 h-10 rounded-2xl bg-fuchsia-500/20 text-fuchsia-300 flex items-center justify-center font-bold border border-fuchsia-500/30">
+                <i data-lucide="mic" class="w-5 h-5"></i>
+              </div>
+              <span class="text-[11px] font-bold text-fuchsia-400 bg-fuchsia-500/10 px-2.5 py-1 rounded-full border border-fuchsia-500/20">Natural Synth</span>
+            </div>
+            <div class="my-4 space-y-1.5">
+              <h3 class="font-display font-bold text-base text-white">Ultra-Low Latency Voice</h3>
+              <p class="text-xs text-slate-400 leading-relaxed">
+                Full-duplex speech synthesis with emotional nuance and interruptions support.
+              </p>
+            </div>
+            <button data-screen-target="settings" class="text-xs font-bold text-fuchsia-400 hover:text-fuchsia-300 flex items-center gap-1.5 pt-2">
+              <span>Tune acoustic persona</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Quick Action Interactive Prompt Bento Pills (Dark) -->
+      <div class="space-y-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <i data-lucide="zap" class="w-5 h-5 text-amber-400"></i>
+            <h3 class="font-display font-bold text-lg text-white">Quick Prompt Launchers</h3>
+          </div>
+          <span class="text-xs text-slate-400">Click any card to inject directly into AI chat</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          
+          <div class="quick-prompt-pill squircle-card p-5 cursor-pointer hover:border-violet-400 group bg-[#111320]/80" data-prompt="Design an ultra-accessible design system with soft squircle geometry and high-contrast color tokens">
+            <div class="w-9 h-9 rounded-2xl bg-gradient-to-tr from-violet-600 to-fuchsia-600 text-white flex items-center justify-center mb-3 shadow-md group-hover:scale-110 transition-transform">
+              <i data-lucide="pen-tool" class="w-4 h-4"></i>
+            </div>
+            <h4 class="font-bold text-sm text-white group-hover:text-violet-400 transition-colors">UI Design System</h4>
+            <p class="text-[11px] text-slate-400 mt-1 leading-relaxed">Generate color tokens, squircle scales, and accessible typography.</p>
+          </div>
+
+          <div class="quick-prompt-pill squircle-card p-5 cursor-pointer hover:border-fuchsia-400 group bg-[#111320]/80" data-prompt="Simulate an end-to-end user onboarding flow for an AI copilot with interactive decision cards">
+            <div class="w-9 h-9 rounded-2xl bg-gradient-to-tr from-fuchsia-500 to-rose-500 text-white flex items-center justify-center mb-3 shadow-md group-hover:scale-110 transition-transform">
+              <i data-lucide="git-branch" class="w-4 h-4"></i>
+            </div>
+            <h4 class="font-bold text-sm text-white group-hover:text-fuchsia-400 transition-colors">Onboarding Simulation</h4>
+            <p class="text-[11px] text-slate-400 mt-1 leading-relaxed">Model drop-off friction points and interactive passkey solutions.</p>
+          </div>
+
+          <div class="quick-prompt-pill squircle-card p-5 cursor-pointer hover:border-amber-400 group bg-[#111320]/80" data-prompt="Synthesize competitive market research into an executive matrix with SWOT analysis">
+            <div class="w-9 h-9 rounded-2xl bg-gradient-to-tr from-amber-500 to-orange-500 text-white flex items-center justify-center mb-3 shadow-md group-hover:scale-110 transition-transform">
+              <i data-lucide="trending-up" class="w-4 h-4"></i>
+            </div>
+            <h4 class="font-bold text-sm text-white group-hover:text-amber-400 transition-colors">Market Intelligence</h4>
+            <p class="text-[11px] text-slate-400 mt-1 leading-relaxed">Extract deep signals from industry reports into structured data.</p>
+          </div>
+
+          <div class="quick-prompt-pill squircle-card p-5 cursor-pointer hover:border-emerald-400 group bg-[#111320]/80" data-prompt="Write a modern TypeScript & Tailwind component with reactive micro-animations">
+            <div class="w-9 h-9 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-500 text-white flex items-center justify-center mb-3 shadow-md group-hover:scale-110 transition-transform">
+              <i data-lucide="code" class="w-4 h-4"></i>
+            </div>
+            <h4 class="font-bold text-sm text-white group-hover:text-emerald-400 transition-colors">Code Architecture</h4>
+            <p class="text-[11px] text-slate-400 mt-1 leading-relaxed">Clean functional code blocks ready for instant copy & deployment.</p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ------------------------------------------------------------------------
+         SCREEN 2: AI CHAT INTERFACE (DARK)
+         ------------------------------------------------------------------------ -->
+    <div id="screen-chat" class="app-screen-container hidden max-w-5xl mx-auto flex flex-col h-[calc(100vh-140px)]">
+      
+      <!-- Chat Header -->
+      <div class="squircle-card p-4 mb-4 flex items-center justify-between shrink-0 bg-[#121423]/85 border border-white/10">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-violet-600 to-fuchsia-600 p-0.5 shadow-md">
+            <div class="w-full h-full rounded-[14px] bg-[#0c0d16] flex items-center justify-center text-amber-300">
+              <i data-lucide="sparkles" class="w-5 h-5"></i>
+            </div>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 class="font-display font-bold text-white text-sm">Lumina Intelligent Thread</h3>
+              <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">Live Stream</span>
+            </div>
+            <p class="text-[11px] text-slate-400">Context: Onboarding Flow Optimization & System Design</p>
+          </div>
+        </div>
+
+        <!-- Tone Selector & Model Pill -->
+        <div class="flex items-center gap-2">
+          <div class="hidden sm:flex items-center gap-1 bg-white/5 p-1 rounded-full text-xs font-semibold border border-white/5">
+            <button class="px-2.5 py-1 rounded-full bg-violet-600 text-white shadow-sm">Playful</button>
+            <button class="px-2.5 py-1 rounded-full text-slate-400 hover:text-white">Analytical</button>
+            <button class="px-2.5 py-1 rounded-full text-slate-400 hover:text-white">Code-Strict</button>
+          </div>
+          <button data-screen-target="results" class="px-3 py-1.5 rounded-full bg-violet-500/20 hover:bg-violet-500/30 text-violet-300 border border-violet-500/40 text-xs font-bold transition-all flex items-center gap-1">
+            <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            <span>Results Studio</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Messages Stream (Dark) -->
+      <div id="chat-message-stream" class="flex-1 overflow-y-auto space-y-6 pr-2 mb-4">
+        
+        <!-- Welcome AI Message -->
+        <div class="flex items-start gap-3 max-w-2xl animate-in fade-in duration-300">
+          <div class="w-9 h-9 rounded-2xl bg-gradient-to-tr from-violet-600 to-pink-500 p-0.5 shrink-0 shadow-md">
+            <div class="w-full h-full rounded-[14px] bg-[#0c0d16] flex items-center justify-center text-violet-400">
+              <i data-lucide="sparkles" class="w-4 h-4"></i>
+            </div>
+          </div>
+          <div class="space-y-2 w-full">
+            <div class="flex items-center gap-2 text-[11px] text-slate-400 font-medium">
+              <span class="font-bold text-violet-400">Lumina Core</span>
+              <span class="px-2 py-0.5 rounded-full bg-violet-500/20 text-violet-300 border border-violet-500/30 text-[10px] font-semibold">System Memory Synced</span>
+              <span>•</span>
+              <span>10:42 AM</span>
+            </div>
+            <div class="p-5 rounded-3xl rounded-tl-none bg-[#141624]/95 backdrop-blur-xl border border-white/10 shadow-lg text-sm text-slate-200 leading-relaxed">
+              Hello Alex! ✨ I've analyzed your workflow telemetry. Your Q3 growth deck is ready for review, and I've prepared predictive analysis on our mobile onboarding funnel. What shall we tackle together?
+              
+              <div class="mt-4 pt-3 border-t border-white/10 flex flex-wrap gap-2">
+                <button class="quick-prompt-pill px-3 py-1.5 rounded-full bg-white/5 hover:bg-violet-600 hover:text-white text-slate-300 text-xs font-semibold transition-all border border-white/5" data-prompt="Analyze mobile onboarding funnel drop-offs">
+                  📊 Onboarding Drop-offs
+                </button>
+                <button class="quick-prompt-pill px-3 py-1.5 rounded-full bg-white/5 hover:bg-fuchsia-600 hover:text-white text-slate-300 text-xs font-semibold transition-all border border-white/5" data-prompt="Generate interactive prototype for step 3 passkey login">
+                  🔑 Passkey Login Prototype
+                </button>
+                <button class="quick-prompt-pill px-3 py-1.5 rounded-full bg-white/5 hover:bg-amber-600 hover:text-white text-slate-300 text-xs font-semibold transition-all border border-white/5" data-prompt="Export TypeScript component with soft rounded geometry">
+                  💻 Export Code Component
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sample User Query -->
+        <div class="flex items-end justify-end gap-3 max-w-2xl ml-auto animate-in slide-in-from-bottom-2 duration-300">
+          <div class="space-y-1.5 text-right">
+            <div class="flex items-center justify-end gap-2 text-[11px] text-slate-400 font-medium">
+              <span>You</span>
+              <span>•</span>
+              <span>10:43 AM</span>
+            </div>
+            <div class="p-4 rounded-3xl rounded-br-none bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow-lg shadow-violet-600/30 text-sm leading-relaxed text-left font-medium">
+              Show me the predictive conversion analysis for the new onboarding flow with a breakdown of drop-off points and interactive solutions.
+            </div>
+          </div>
+          <div class="w-9 h-9 rounded-2xl bg-gradient-to-tr from-fuchsia-500 to-amber-400 p-0.5 shrink-0 shadow-md">
+            <div class="w-full h-full rounded-[14px] bg-[#0c0d16] flex items-center justify-center text-white text-xs font-bold">
+              AX
+            </div>
+          </div>
+        </div>
+
+        <!-- Sample AI Response with Rich Interactive Output Card -->
+        <div class="flex items-start gap-3 max-w-3xl animate-in slide-in-from-bottom-2 duration-300">
+          <div class="w-9 h-9 rounded-2xl bg-gradient-to-tr from-violet-600 to-pink-500 p-0.5 shrink-0 shadow-md">
+            <div class="w-full h-full rounded-[14px] bg-[#0c0d16] flex items-center justify-center text-violet-400">
+              <i data-lucide="sparkles" class="w-4 h-4"></i>
+            </div>
+          </div>
+          <div class="space-y-3 w-full">
+            <div class="flex items-center gap-2 text-[11px] text-slate-400 font-medium">
+              <span class="font-bold text-violet-400">Lumina Core</span>
+              <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-semibold">Deep Reasoning 3.8</span>
+              <span>•</span>
+              <span>10:43 AM</span>
+            </div>
+
+            <!-- Main text bubble -->
+            <div class="p-5 rounded-3xl rounded-tl-none bg-[#141624]/95 backdrop-blur-xl border border-white/10 shadow-lg text-sm text-slate-200 leading-relaxed">
+              Based on telemetry across 45,000 simulated sessions, the conversion drop-off concentrates at <strong class="text-white">Step 3 (KYC & Verification)</strong> with a <strong class="text-rose-400">14.2% drop rate</strong>. 
+              <br><br>
+              I synthesized a frictionless solution using zero-knowledge passkeys and smart autofill, which projects a <strong class="text-emerald-400">+28.4% lift in completion</strong>.
+
+              <!-- Embedded Mini Interactive Widget (Dark) -->
+              <div class="mt-4 p-4 rounded-2xl bg-gradient-to-br from-violet-950/50 to-pink-950/40 border border-violet-500/30 space-y-3">
+                <div class="flex items-center justify-between text-xs font-bold text-slate-200">
+                  <span class="flex items-center gap-1.5 text-violet-300">
+                    <i data-lucide="activity" class="w-4 h-4"></i>
+                    Friction Simulation Outcome
+                  </span>
+                  <span class="text-emerald-400 font-extrabold">+28.4% Completion Lift</span>
+                </div>
+                <!-- Progress Comparison -->
+                <div class="space-y-1.5 text-xs">
+                  <div class="flex justify-between text-slate-400 text-[11px]">
+                    <span>Current Multi-Step Manual: 64.2%</span>
+                    <span>Lumina Smart Passkey: 92.6%</span>
+                  </div>
+                  <div class="h-2 w-full bg-slate-800 rounded-full overflow-hidden flex">
+                    <div class="bg-slate-600 h-full" style="width: 64.2%"></div>
+                    <div class="bg-gradient-to-r from-emerald-500 to-teal-400 h-full" style="width: 28.4%"></div>
+                  </div>
+                </div>
+                <div class="pt-2 flex items-center justify-between">
+                  <button data-screen-target="results" class="px-3.5 py-1.5 rounded-full bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:opacity-95 text-white text-xs font-bold transition-all flex items-center gap-1.5 shadow-md">
+                    <i data-lucide="sliders" class="w-3.5 h-3.5"></i>
+                    <span>Inspect Full Interactive Results</span>
+                  </button>
+                  <span class="text-[11px] text-slate-400 font-mono">Simulated N=45k</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Chat Input Dock with Multimodal Actions (Dark Glass) -->
+      <div class="squircle-card p-3 relative shrink-0 border border-white/15 focus-within:border-violet-500 transition-colors bg-[#111322]/90 shadow-2xl">
+        <div class="flex items-center gap-2">
+          <!-- Attachment / Multi-modal tools -->
+          <button class="p-2 text-slate-400 hover:text-violet-400 rounded-2xl hover:bg-white/5 transition-all" title="Upload documents or telemetry">
+            <i data-lucide="paperclip" class="w-4 h-4"></i>
+          </button>
+          <button class="p-2 text-slate-400 hover:text-pink-400 rounded-2xl hover:bg-white/5 transition-all" title="Vision & Canvas Snapshot">
+            <i data-lucide="image" class="w-4 h-4"></i>
+          </button>
+
+          <!-- Input area -->
+          <input id="chat-user-input" type="text" placeholder="Ask Lumina anything, command swarms, or type a concept..." class="flex-1 bg-transparent border-0 focus:outline-none text-sm text-white placeholder:text-slate-500 py-2">
+
+          <!-- Voice Mic & Send Button -->
+          <button class="p-2 text-slate-400 hover:text-amber-400 rounded-2xl hover:bg-white/5 transition-all" title="Voice Input">
+            <i data-lucide="mic" class="w-4 h-4"></i>
+          </button>
+          <button id="chat-send-btn" class="btn-playful px-5 py-2.5 bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-500 text-white shadow-lg shadow-violet-600/35 text-xs flex items-center gap-1.5">
+            <span>Send</span>
+            <i data-lucide="send" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ------------------------------------------------------------------------
+         SCREEN 3: CONVERSATION HISTORY & MEMORY STUDIO (DARK)
+         ------------------------------------------------------------------------ -->
+    <div id="screen-history" class="app-screen-container hidden max-w-7xl mx-auto space-y-6">
+      
+      <!-- Screen Header with Search and Stats -->
+      <div class="squircle-card p-6 flex flex-col md:flex-row items-center justify-between gap-4 bg-[#121422]/85 border border-white/10">
+        <div>
+          <div class="flex items-center gap-2">
+            <div class="w-9 h-9 rounded-2xl bg-amber-500/20 text-amber-300 flex items-center justify-center font-bold border border-amber-500/30">
+              <i data-lucide="brain-circuit" class="w-5 h-5"></i>
+            </div>
+            <h2 class="font-display font-extrabold text-2xl text-white tracking-tight">Episodic Memory Studio</h2>
+          </div>
+          <p class="text-xs text-slate-400 mt-1">Lumina preserves episodic context, design decisions, and learned preferences across threads.</p>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="w-full md:w-80 relative">
+          <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+          <input id="memory-search-input" type="text" placeholder="Search memories, topics, code..." class="w-full pl-10 pr-4 py-2 text-xs rounded-full bg-[#181a2b] border border-white/10 text-white focus:outline-none focus:border-violet-500 transition-all">
+        </div>
+      </div>
+
+      <!-- Filter Pills -->
+      <div class="flex items-center gap-2 overflow-x-auto pb-1">
+        <button class="memory-filter-pill px-4 py-1.5 rounded-full text-xs font-bold bg-violet-600 text-white shadow-sm transition-all" data-tag="all">All Memories</button>
+        <button class="memory-filter-pill px-4 py-1.5 rounded-full text-xs font-bold bg-[#141624] text-slate-300 hover:text-white border border-white/10 transition-all" data-tag="design">Design & UI</button>
+        <button class="memory-filter-pill px-4 py-1.5 rounded-full text-xs font-bold bg-[#141624] text-slate-300 hover:text-white border border-white/10 transition-all" data-tag="telemetry">Product Telemetry</button>
+        <button class="memory-filter-pill px-4 py-1.5 rounded-full text-xs font-bold bg-[#141624] text-slate-300 hover:text-white border border-white/10 transition-all" data-tag="code">Code Architectures</button>
+        <button class="memory-filter-pill px-4 py-1.5 rounded-full text-xs font-bold bg-[#141624] text-slate-300 hover:text-white border border-white/10 transition-all" data-tag="strategy">Strategy</button>
+      </div>
+
+      <!-- Interactive Neural Knowledge Graph Visualizer (Deep Obsidian) -->
+      <div class="squircle-card p-6 relative overflow-hidden bg-gradient-to-br from-[#0c0d16] via-[#101222] to-[#15122a] text-white border border-white/15 shadow-2xl">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+            <span class="text-xs font-bold tracking-wider uppercase text-violet-300">Live Memory Topology Graph</span>
+          </div>
+          <span class="text-[11px] text-slate-400 font-mono">1,420 Nodes • 3,890 Edges</span>
+        </div>
+
+        <!-- SVG Node Graph Simulation -->
+        <div class="relative w-full h-64 bg-[#07080f]/90 rounded-2xl border border-white/10 flex items-center justify-center overflow-hidden">
+          <svg class="w-full h-full" viewBox="0 0 800 260">
+            <!-- Connection Lines -->
+            <line x1="200" y1="130" x2="400" y2="70" stroke="rgba(168, 85, 247, 0.45)" stroke-width="2" stroke-dasharray="4" />
+            <line x1="400" y1="70" x2="600" y2="130" stroke="rgba(236, 72, 153, 0.45)" stroke-width="2" />
+            <line x1="400" y1="70" x2="350" y2="200" stroke="rgba(6, 182, 212, 0.45)" stroke-width="2" />
+            <line x1="200" y1="130" x2="350" y2="200" stroke="rgba(251, 191, 36, 0.45)" stroke-width="2" />
+            <line x1="600" y1="130" x2="520" y2="210" stroke="rgba(16, 185, 129, 0.45)" stroke-width="2" />
+
+            <!-- Node 1: Central Core -->
+            <g class="graph-node" transform="translate(400, 70)">
+              <circle r="32" fill="url(#violetGradDark)" />
+              <text text-anchor="middle" dy="4" fill="white" font-size="11" font-weight="bold">Core Persona</text>
+            </g>
+
+            <!-- Node 2: Design System -->
+            <g class="graph-node" transform="translate(200, 130)">
+              <circle r="26" fill="#ec4899" />
+              <text text-anchor="middle" dy="4" fill="white" font-size="10" font-weight="bold">Design Sys</text>
+            </g>
+
+            <!-- Node 3: Onboarding Telemetry -->
+            <g class="graph-node" transform="translate(600, 130)">
+              <circle r="28" fill="#8b5cf6" />
+              <text text-anchor="middle" dy="4" fill="white" font-size="10" font-weight="bold">Telemetry</text>
+            </g>
+
+            <!-- Node 4: KYC Passkeys -->
+            <g class="graph-node" transform="translate(350, 200)">
+              <circle r="24" fill="#06b6d4" />
+              <text text-anchor="middle" dy="4" fill="white" font-size="9" font-weight="bold">Passkeys</text>
+            </g>
+
+            <!-- Node 5: Swarm Workflows -->
+            <g class="graph-node" transform="translate(520, 210)">
+              <circle r="22" fill="#10b981" />
+              <text text-anchor="middle" dy="4" fill="white" font-size="9" font-weight="bold">Swarms</text>
+            </g>
+
+            <defs>
+              <linearGradient id="violetGradDark" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#8b5cf6" />
+                <stop offset="100%" stop-color="#ec4899" />
+              </linearGradient>
+            </defs>
+          </svg>
+          <div class="absolute bottom-3 left-4 text-[11px] text-slate-400">
+            Interactive topology: Nodes represent consolidated semantic vectors.
+          </div>
+        </div>
+      </div>
+
+      <!-- Memory Card Grid (Dark) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        
+        <!-- Card 1 -->
+        <div class="memory-item-card squircle-card p-5 space-y-3 cursor-pointer hover:border-pink-500/50 bg-[#121422]/80" data-tag="design">
+          <div class="flex items-center justify-between text-xs">
+            <span class="px-2.5 py-1 rounded-full bg-pink-500/20 text-pink-300 font-bold border border-pink-500/30">Design & UI</span>
+            <span class="text-slate-400">Yesterday, 4:15 PM</span>
+          </div>
+          <h4 class="font-display font-bold text-white text-sm">Playful Squircle Geometry System</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Standardized 28px outer squircle radius with 9999px pill badges and tactile bounce states.
+          </p>
+          <div class="pt-2 border-t border-white/10 flex items-center justify-between text-xs text-violet-400 font-bold">
+            <span>Resume Conversation</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="memory-item-card squircle-card p-5 space-y-3 cursor-pointer hover:border-violet-500/50 bg-[#121422]/80" data-tag="telemetry">
+          <div class="flex items-center justify-between text-xs">
+            <span class="px-2.5 py-1 rounded-full bg-violet-500/20 text-violet-300 font-bold border border-violet-500/30">Product Telemetry</span>
+            <span class="text-slate-400">2 days ago</span>
+          </div>
+          <h4 class="font-display font-bold text-white text-sm">KYC Step 3 Drop-Off Analysis</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Identified high friction during document capture on mobile Safari. Recommended WebAuthn passkey pass.
+          </p>
+          <div class="pt-2 border-t border-white/10 flex items-center justify-between text-xs text-violet-400 font-bold">
+            <span>Resume Conversation</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="memory-item-card squircle-card p-5 space-y-3 cursor-pointer hover:border-emerald-500/50 bg-[#121422]/80" data-tag="code">
+          <div class="flex items-center justify-between text-xs">
+            <span class="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30">Code Architectures</span>
+            <span class="text-slate-400">Sept 22</span>
+          </div>
+          <h4 class="font-display font-bold text-white text-sm">Autonomous Swarm Pipeline Spec</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Multi-agent architecture draft featuring Researcher, Synthesizer, Designer, and Auditor agents.
+          </p>
+          <div class="pt-2 border-t border-white/10 flex items-center justify-between text-xs text-violet-400 font-bold">
+            <span>Resume Conversation</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ------------------------------------------------------------------------
+         SCREEN 4: AI RESPONSE & RESULTS INTERFACE (Studio Showcase Dark)
+         ------------------------------------------------------------------------ -->
+    <div id="screen-results" class="app-screen-container hidden max-w-7xl mx-auto space-y-6">
+      
+      <!-- Header Banner -->
+      <div class="squircle-card p-6 flex flex-col md:flex-row items-center justify-between gap-4 bg-gradient-to-r from-violet-900/90 via-fuchsia-900/80 to-purple-900/90 text-white border border-white/15 shadow-2xl">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-xs font-bold uppercase tracking-wider text-pink-300 border border-white/10">
+              Generative Results Studio
+            </span>
+            <span class="text-xs text-violet-200">Execution Runtime: 0.42s</span>
+          </div>
+          <h2 class="font-display font-extrabold text-2xl tracking-tight mt-2 text-white">
+            Multi-Modal Response: Predictive Onboarding Engine
+          </h2>
+          <p class="text-xs text-slate-300 mt-1 max-w-xl">
+            Generated interactive sandbox, telemetry visualization, and executable production code components.
+          </p>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button class="btn-playful px-4 py-2 bg-white text-slate-900 text-xs shadow-lg flex items-center gap-1.5 font-bold">
+            <i data-lucide="download" class="w-3.5 h-3.5"></i>
+            <span>Export Artifact</span>
+          </button>
+          <button class="btn-playful px-4 py-2 bg-white/10 hover:bg-white/20 text-white text-xs border border-white/20 flex items-center gap-1.5 font-bold">
+            <i data-lucide="share-2" class="w-3.5 h-3.5"></i>
+            <span>Share Link</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Split Layout: Interactive Generative UI Widget + Analytics Chart (Dark) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Left: Interactive Generative Component Sandbox (7 cols) -->
+        <div class="lg:col-span-7 space-y-6">
+          
+          <div class="squircle-card p-6 space-y-4 bg-[#121422]/85 border border-white/10">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-fuchsia-400 animate-ping"></span>
+                <h3 class="font-display font-bold text-white text-base">Live Interactive Component Prototype</h3>
+              </div>
+              <span class="px-2.5 py-0.5 rounded-full bg-violet-500/20 text-violet-300 border border-violet-500/30 text-xs font-bold">Zero-Friction Passkey</span>
+            </div>
+
+            <!-- The simulated next-gen interactive UI card -->
+            <div class="p-6 rounded-[24px] bg-gradient-to-br from-[#0c0d16] via-[#121426] to-[#18152e] text-white shadow-2xl border border-white/15 space-y-5">
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class="text-[11px] font-bold text-violet-400 uppercase tracking-wider">Step 3 of 4</div>
+                  <h4 class="font-display font-bold text-lg text-white">Instant Passkey Verification</h4>
+                </div>
+                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-violet-500 to-pink-500 flex items-center justify-center shadow-lg shadow-violet-500/30">
+                  <i data-lucide="fingerprint" class="w-5 h-5 text-white"></i>
+                </div>
+              </div>
+
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Biometric touch confirmed. No seed phrases, SMS OTP delays, or passwords required.
+              </p>
+
+              <!-- Interactive Simulated Toggle -->
+              <div class="p-3 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 flex items-center justify-between">
+                <div class="flex items-center gap-2 text-xs">
+                  <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i>
+                  <span>Zero-Knowledge Proof Verified</span>
+                </div>
+                <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">SECURE</span>
+              </div>
+
+              <div class="pt-2 flex items-center gap-3">
+                <button class="w-full py-3 rounded-2xl bg-gradient-to-r from-violet-600 via-fuchsia-500 to-pink-500 text-white font-bold text-xs shadow-lg shadow-violet-500/30 hover:opacity-95 transition-opacity">
+                  Authorize & Finalize Setup
+                </button>
+              </div>
+            </div>
+
+            <!-- Thought Process / Agent Reasoning Accordion -->
+            <div class="p-4 rounded-2xl bg-[#090b14] border border-white/10 space-y-2">
+              <div class="flex items-center justify-between text-xs font-bold text-slate-300 cursor-pointer">
+                <span class="flex items-center gap-2 text-violet-400">
+                  <i data-lucide="cpu" class="w-4 h-4"></i>
+                  Frontier Neural Reasoning Path (3 Steps)
+                </span>
+                <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400"></i>
+              </div>
+              <ul class="text-[11px] text-slate-400 space-y-1 pl-4 list-disc">
+                <li>Parsed 45,000 telemetry traces from production cluster</li>
+                <li>Isolated 14.2% bounce rate during SMS OTP wait times</li>
+                <li>Generated WebAuthn passkey protocol reducing interaction time from 78s to 1.8s</li>
+              </ul>
+            </div>
+
+          </div>
+
+          <!-- Executable Code Sandbox Card (Dark) -->
+          <div class="squircle-card p-6 space-y-3 bg-[#121422]/85 border border-white/10">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <i data-lucide="code" class="w-5 h-5 text-emerald-400"></i>
+                <h3 class="font-display font-bold text-white text-base">Production Component Code</h3>
+              </div>
+              <button class="px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 text-slate-200 text-xs font-bold transition-all flex items-center gap-1 border border-white/10">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                <span>Copy TypeScript</span>
+              </button>
+            </div>
+            
+            <pre class="p-4 rounded-2xl bg-[#07080f] text-slate-200 text-xs font-mono overflow-x-auto leading-relaxed border border-white/10">
+<span class="text-pink-400">import</span> React, { useState } <span class="text-pink-400">from</span> <span class="text-emerald-400">'react'</span>;
+<span class="text-pink-400">import</span> { PasskeyAuth } <span class="text-pink-400">from</span> <span class="text-emerald-400">'@lumina/auth-sdk'</span>;
+
+<span class="text-violet-400">export const</span> <span class="text-amber-300">QuickPasskeyStep</span> = () =&gt; {
+  <span class="text-violet-400">const</span> [verified, setVerified] = useState(<span class="text-pink-400">false</span>);
+
+  <span class="text-violet-400">const</span> handleAuth = <span class="text-violet-400">async</span> () =&gt; {
+    <span class="text-violet-400">const</span> res = <span class="text-pink-400">await</span> PasskeyAuth.verifyBiometric();
+    <span class="text-pink-400">if</span> (res.success) setVerified(<span class="text-pink-400">true</span>);
+  };
+
+  <span class="text-pink-400">return</span> (
+    &lt;<span class="text-cyan-300">button</span> onClick={handleAuth} className=<span class="text-emerald-400">"rounded-[28px] bg-gradient-to-r from-violet-600 to-pink-500"</span>&gt;
+      {verified ? <span class="text-emerald-400">"Verified ✨"</span> : <span class="text-emerald-400">"Authorize with Passkey"</span>}
+    &lt;/<span class="text-cyan-300">button</span>&gt;
+  );
+};</pre>
+          </div>
+
+        </div>
+
+        <!-- Right: Telemetry Chart & Performance Metrics (5 cols) -->
+        <div class="lg:col-span-5 space-y-6">
+          
+          <div class="squircle-card p-6 space-y-4 bg-[#121422]/85 border border-white/10">
+            <h3 class="font-display font-bold text-white text-base flex items-center gap-2">
+              <i data-lucide="bar-chart-3" class="w-5 h-5 text-violet-400"></i>
+              Predictive Conversion Funnel
+            </h3>
+
+            <!-- SVG Data Funnel Visualization (Dark) -->
+            <div class="space-y-3 pt-2">
+              <div>
+                <div class="flex justify-between text-xs font-bold text-slate-300 mb-1">
+                  <span>Step 1: Landing Discovery</span>
+                  <span>100% (45.0k)</span>
+                </div>
+                <div class="h-3 w-full bg-slate-800 rounded-full overflow-hidden">
+                  <div class="h-full bg-violet-600 rounded-full" style="width: 100%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-xs font-bold text-slate-300 mb-1">
+                  <span>Step 2: Profile Persona</span>
+                  <span>88.4% (39.7k)</span>
+                </div>
+                <div class="h-3 w-full bg-slate-800 rounded-full overflow-hidden">
+                  <div class="h-full bg-fuchsia-500 rounded-full" style="width: 88.4%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-xs font-bold text-slate-300 mb-1">
+                  <span class="text-violet-300 font-extrabold">Step 3: Lumina Passkey (New)</span>
+                  <span class="text-emerald-400 font-extrabold">92.6% (+28.4%)</span>
+                </div>
+                <div class="h-3 w-full bg-slate-800 rounded-full overflow-hidden">
+                  <div class="h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full" style="width: 92.6%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-xs font-bold text-slate-300 mb-1">
+                  <span>Step 4: Active Workspace Ready</span>
+                  <span>89.1% (40.1k)</span>
+                </div>
+                <div class="h-3 w-full bg-slate-800 rounded-full overflow-hidden">
+                  <div class="h-full bg-pink-500 rounded-full" style="width: 89.1%"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Key Metric Callouts (Dark) -->
+            <div class="pt-4 grid grid-cols-2 gap-3">
+              <div class="p-3 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 text-center">
+                <div class="text-2xl font-black text-emerald-400">+28.4%</div>
+                <div class="text-[10px] font-bold text-emerald-300 uppercase mt-0.5">Net Completion Lift</div>
+              </div>
+              <div class="p-3 rounded-2xl bg-violet-950/40 border border-violet-500/30 text-center">
+                <div class="text-2xl font-black text-violet-300">1.8s</div>
+                <div class="text-[10px] font-bold text-violet-300 uppercase mt-0.5">Avg Passkey Auth Time</div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Decision Log Card (Dark) -->
+          <div class="squircle-card p-6 space-y-3 bg-[#121422]/85 border border-white/10">
+            <h4 class="font-display font-bold text-white text-sm flex items-center gap-2">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
+              Automatic Recommendations
+            </h4>
+            <ul class="text-xs text-slate-300 space-y-2">
+              <li class="flex items-start gap-2">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400 mt-0.5 shrink-0"></i>
+                <span>Deploy passkey fallback to staging cluster for A/B testing</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400 mt-0.5 shrink-0"></i>
+                <span>Persist telemetry baseline to Lumina episodic memory</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400 mt-0.5 shrink-0"></i>
+                <span>Alert Growth Marketing agent to initiate user retargeting</span>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ------------------------------------------------------------------------
+         SCREEN 5: PROFILE & SETTINGS (DARK)
+         ------------------------------------------------------------------------ -->
+    <div id="screen-settings" class="app-screen-container hidden max-w-4xl mx-auto space-y-6">
+      
+      <div class="squircle-card p-6 bg-[#121422]/85 border border-white/10">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-10 h-10 rounded-2xl bg-violet-500/20 text-violet-300 flex items-center justify-center font-bold border border-violet-500/30">
+            <i data-lucide="sliders" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h2 class="font-display font-extrabold text-2xl text-white tracking-tight">AI Persona & System Settings</h2>
+            <p class="text-xs text-slate-400">Fine-tune Lumina's reasoning depth, acoustic voice, and autonomy guardrails.</p>
+          </div>
+        </div>
+
+        <div class="space-y-6">
+          
+          <!-- Frontier Model Selector -->
+          <div class="space-y-2">
+            <label class="text-xs font-bold text-slate-300 uppercase tracking-wider">Frontier Reasoning Model</label>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div class="model-select-btn p-3.5 rounded-2xl border-2 border-violet-500 bg-violet-950/40 ring-2 ring-violet-500/40 cursor-pointer transition-all">
+                <div class="flex justify-between items-center text-xs font-bold text-white">
+                  <span>Gemini 3.8 Ultra</span>
+                  <i data-lucide="sparkles" class="w-3.5 h-3.5 text-violet-400"></i>
+                </div>
+                <p class="text-[11px] text-slate-400 mt-1">Adaptive deep reasoning, multimodal vision, 2M context.</p>
+              </div>
+
+              <div class="model-select-btn p-3.5 rounded-2xl border border-white/10 bg-white/5 hover:border-white/20 cursor-pointer transition-all">
+                <div class="flex justify-between items-center text-xs font-bold text-white">
+                  <span>Claude 3.7 Sonnet</span>
+                  <i data-lucide="cpu" class="w-3.5 h-3.5 text-slate-400"></i>
+                </div>
+                <p class="text-[11px] text-slate-400 mt-1">Hybrid thinking mode, elegant code generation.</p>
+              </div>
+
+              <div class="model-select-btn p-3.5 rounded-2xl border border-white/10 bg-white/5 hover:border-white/20 cursor-pointer transition-all">
+                <div class="flex justify-between items-center text-xs font-bold text-white">
+                  <span>DeepSeek R1 Core</span>
+                  <i data-lucide="brain" class="w-3.5 h-3.5 text-slate-400"></i>
+                </div>
+                <p class="text-[11px] text-slate-400 mt-1">Open-weights mathematical logic and verification.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Autonomy Slider -->
+          <div class="space-y-2 pt-2">
+            <div class="flex justify-between text-xs font-bold">
+              <span class="text-slate-300">Autonomous Execution Threshold</span>
+              <span id="setting-autonomy-val" class="text-violet-400">85%</span>
+            </div>
+            <input id="setting-autonomy-slider" type="range" min="10" max="100" value="85" class="w-full accent-violet-500 cursor-pointer">
+            <div class="flex justify-between text-[11px] text-slate-400">
+              <span>Supervised (Always Ask)</span>
+              <span>Balanced Co-Pilot</span>
+              <span>Full Autonomous Swarm</span>
+            </div>
+          </div>
+
+          <!-- Neural Voice Selector -->
+          <div class="space-y-2 pt-2">
+            <label class="text-xs font-bold text-slate-300 uppercase tracking-wider">Acoustic Voice Persona</label>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <button class="p-3 rounded-2xl bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white text-xs font-bold shadow-md flex items-center justify-between">
+                <span>Nova (Warm & Clear)</span>
+                <i data-lucide="volume-2" class="w-4 h-4"></i>
+              </button>
+              <button class="p-3 rounded-2xl bg-white/5 hover:bg-white/10 text-slate-300 text-xs font-bold flex items-center justify-between border border-white/5">
+                <span>Sol (Playful & Energetic)</span>
+                <i data-lucide="volume-x" class="w-4 h-4 text-slate-400"></i>
+              </button>
+              <button class="p-3 rounded-2xl bg-white/5 hover:bg-white/10 text-slate-300 text-xs font-bold flex items-center justify-between border border-white/5">
+                <span>Lyra (Analytical)</span>
+                <i data-lucide="volume-x" class="w-4 h-4 text-slate-400"></i>
+              </button>
+              <button class="p-3 rounded-2xl bg-white/5 hover:bg-white/10 text-slate-300 text-xs font-bold flex items-center justify-between border border-white/5">
+                <span>Echo (Deep & Ambient)</span>
+                <i data-lucide="volume-x" class="w-4 h-4 text-slate-400"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Theme Palette Selector -->
+          <div class="space-y-2 pt-2">
+            <label class="text-xs font-bold text-slate-300 uppercase tracking-wider">Dark Color Expression</label>
+            <div class="flex items-center gap-3">
+              <button data-theme-choice="hyperpop" class="px-4 py-2 rounded-full bg-gradient-to-r from-violet-600 to-pink-500 text-white text-xs font-bold shadow-sm">
+                Obsidian Neon (Default)
+              </button>
+              <button data-theme-choice="cybermint" class="px-4 py-2 rounded-full bg-gradient-to-r from-teal-500 to-cyan-500 text-white text-xs font-bold shadow-sm">
+                Cyber Mint Dark
+              </button>
+              <button data-theme-choice="candy" class="px-4 py-2 rounded-full bg-gradient-to-r from-rose-500 to-amber-400 text-white text-xs font-bold shadow-sm">
+                Solar Coral Dark
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ------------------------------------------------------------------------
+         SCREEN 6: AI MULTIVERSE WORKFLOW STUDIO (PARTICIPANT'S SPECIAL SCREEN)
+         ------------------------------------------------------------------------ -->
+    <div id="screen-studio" class="app-screen-container hidden max-w-7xl mx-auto space-y-6">
+      
+      <!-- Studio Header -->
+      <div class="squircle-card p-6 flex flex-col md:flex-row items-center justify-between gap-4 bg-gradient-to-r from-[#0c0d16] via-[#121429] to-[#18112c] text-white border border-white/15 shadow-2xl">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="px-3 py-1 rounded-full bg-purple-500/20 border border-purple-400/40 text-purple-300 text-xs font-bold uppercase tracking-wider">
+              Autonomous Swarm Studio
+            </span>
+            <span class="text-xs text-purple-300">4 Synchronized Agents</span>
+          </div>
+          <h2 class="font-display font-extrabold text-2xl tracking-tight mt-2 text-white">
+            Agent Multiverse Workflow Orchestrator
+          </h2>
+          <p class="text-xs text-slate-300 mt-1 max-w-xl">
+            Watch autonomous sub-agents brainstorm, cross-audit, and build software architectures in real-time.
+          </p>
+        </div>
+
+        <button id="run-agent-pipeline-btn" class="btn-playful px-6 py-3 bg-gradient-to-r from-fuchsia-500 to-violet-600 text-white text-xs font-bold shadow-lg shadow-violet-500/35 flex items-center gap-2">
+          <i data-lucide="play" class="w-4 h-4"></i>
+          <span>Run Agent Swarm</span>
+        </button>
+      </div>
+
+      <!-- Interactive Swarm Canvas Board (Dark) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        
+        <!-- Agent Node 1: Deep Researcher -->
+        <div class="agent-workflow-node squircle-card p-5 space-y-3 cursor-pointer border-t-4 border-t-cyan-500 hover:border-cyan-400 bg-[#121422]/80">
+          <div class="flex items-center justify-between">
+            <div class="w-9 h-9 rounded-2xl bg-cyan-500/20 text-cyan-300 flex items-center justify-center font-bold border border-cyan-500/30">
+              <i data-lucide="search" class="w-4 h-4"></i>
+            </div>
+            <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">IDLE / READY</span>
+          </div>
+          <h4 class="font-display font-bold text-white text-sm">Deep Market Researcher</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Crawls real-time telemetry, competitive documentation, and user friction logs.
+          </p>
+          <div class="p-2 rounded-xl bg-black/40 text-[11px] text-slate-300 font-mono border border-white/5">
+            Output: 14 semantic signals
+          </div>
+        </div>
+
+        <!-- Agent Node 2: Logic Synthesizer -->
+        <div class="agent-workflow-node squircle-card p-5 space-y-3 cursor-pointer border-t-4 border-t-violet-500 hover:border-violet-400 bg-[#121422]/80">
+          <div class="flex items-center justify-between">
+            <div class="w-9 h-9 rounded-2xl bg-violet-500/20 text-violet-300 flex items-center justify-center font-bold border border-violet-500/30">
+              <i data-lucide="cpu" class="w-4 h-4"></i>
+            </div>
+            <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">ACTIVE</span>
+          </div>
+          <h4 class="font-display font-bold text-white text-sm">Logic & Schema Synthesizer</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Formulates data structures, zero-knowledge contracts, and algorithmic models.
+          </p>
+          <div class="p-2 rounded-xl bg-black/40 text-[11px] text-slate-300 font-mono border border-white/5">
+            Output: Passkey protocol schema
+          </div>
+        </div>
+
+        <!-- Agent Node 3: UI/UX Copilot -->
+        <div class="agent-workflow-node squircle-card p-5 space-y-3 cursor-pointer border-t-4 border-t-fuchsia-500 hover:border-fuchsia-400 bg-[#121422]/80">
+          <div class="flex items-center justify-between">
+            <div class="w-9 h-9 rounded-2xl bg-fuchsia-500/20 text-fuchsia-300 flex items-center justify-center font-bold border border-fuchsia-500/30">
+              <i data-lucide="palette" class="w-4 h-4"></i>
+            </div>
+            <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">ACTIVE</span>
+          </div>
+          <h4 class="font-display font-bold text-white text-sm">Playful UI/UX Generative Copilot</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Renders vibrant squircles, accessible color tokens, and micro-interactions.
+          </p>
+          <div class="p-2 rounded-xl bg-black/40 text-[11px] text-slate-300 font-mono border border-white/5">
+            Output: Tailwind component v3
+          </div>
+        </div>
+
+        <!-- Agent Node 4: Rigorous Auditor -->
+        <div class="agent-workflow-node squircle-card p-5 space-y-3 cursor-pointer border-t-4 border-t-amber-500 hover:border-amber-400 bg-[#121422]/80">
+          <div class="flex items-center justify-between">
+            <div class="w-9 h-9 rounded-2xl bg-amber-500/20 text-amber-300 flex items-center justify-center font-bold border border-amber-500/30">
+              <i data-lucide="shield-alert" class="w-4 h-4"></i>
+            </div>
+            <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">VERIFIED</span>
+          </div>
+          <h4 class="font-display font-bold text-white text-sm">Security & Quality Auditor</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Performs static code analysis, WCAG AAA compliance checks, and privacy audits.
+          </p>
+          <div class="p-2 rounded-xl bg-black/40 text-[11px] text-slate-300 font-mono border border-white/5">
+            0 Vulnerabilities • 100% Pass
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Live Execution Log Stream (Terminal Black) -->
+      <div class="squircle-card p-6 space-y-3 bg-[#06070c] text-slate-300 font-mono text-xs border border-white/10 shadow-2xl">
+        <div class="flex items-center justify-between pb-2 border-b border-white/10">
+          <span class="text-violet-400 font-bold flex items-center gap-2">
+            <i data-lucide="terminal" class="w-4 h-4"></i>
+            Swarm Consensus Telemetry Stream
+          </span>
+          <span class="text-slate-500 text-[10px]">Auto-Scroll Enabled</span>
+        </div>
+        <div class="space-y-1.5 text-[11px]">
+          <div><span class="text-slate-500">[10:44:02]</span> <span class="text-cyan-400">[Researcher]</span> Fetched 45k telemetry traces from AWS CloudWatch</div>
+          <div><span class="text-slate-500">[10:44:03]</span> <span class="text-violet-400">[Synthesizer]</span> Derived bottleneck equation: Friction = f(SMS_wait_time, field_count)</div>
+          <div><span class="text-slate-500">[10:44:04]</span> <span class="text-fuchsia-400">[Generative UI]</span> Created prototype component `QuickPasskeyStep.tsx`</div>
+          <div><span class="text-slate-500">[10:44:05]</span> <span class="text-amber-400">[Auditor]</span> Security check passed: WebAuthn challenge zero-knowledge compliant</div>
+          <div class="text-emerald-400 font-bold"><span class="text-slate-500">[10:44:06]</span> [Swarm] Pipeline complete. Artifact dispatched to Results Studio.</div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ==========================================================================
+       DESIGN SYSTEM & UI SPECS INSPECTOR MODAL (DARK OBSIDIAN)
+       ========================================================================== -->
+  <div id="design-system-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-md items-center justify-center p-4">
+    <div class="squircle-card max-w-3xl w-full max-h-[88vh] overflow-y-auto p-6 sm:p-8 bg-[#0f111d] border border-violet-500/40 shadow-2xl space-y-6 animate-in zoom-in-95 duration-200">
+      
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between border-b border-white/10 pb-4">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-2xl bg-violet-500/20 text-violet-300 flex items-center justify-center font-bold border border-violet-500/30">
+            <i data-lucide="palette" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="font-display font-extrabold text-xl text-white">LUMINA UI Design System Specs (Dark)</h3>
+            <p class="text-xs text-slate-400">Design guidelines, dark color tokens, and geometric principles.</p>
+          </div>
+        </div>
+        <button id="close-design-system-btn" class="p-2 rounded-2xl bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors border border-white/5">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Color Tokens Matrix with 1-Click Copy -->
+      <div class="space-y-3">
+        <h4 class="font-display font-bold text-sm text-white uppercase tracking-wider">Playful & Vibrant Color System on Dark</h4>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+          
+          <div class="copy-color-pill p-3 rounded-2xl bg-violet-600 text-white cursor-pointer hover:scale-105 transition-transform shadow-md" data-hex="#7c3aed">
+            <div class="font-extrabold">Electric Violet</div>
+            <div class="text-[10px] opacity-80 font-mono">#7c3aed</div>
+          </div>
+
+          <div class="copy-color-pill p-3 rounded-2xl bg-pink-500 text-white cursor-pointer hover:scale-105 transition-transform shadow-md" data-hex="#ec4899">
+            <div class="font-extrabold">Radiant Fuchsia</div>
+            <div class="text-[10px] opacity-80 font-mono">#ec4899</div>
+          </div>
+
+          <div class="copy-color-pill p-3 rounded-2xl bg-amber-500 text-white cursor-pointer hover:scale-105 transition-transform shadow-md" data-hex="#f59e0b">
+            <div class="font-extrabold">Solar Amber</div>
+            <div class="text-[10px] opacity-80 font-mono">#f59e0b</div>
+          </div>
+
+          <div class="copy-color-pill p-3 rounded-2xl bg-emerald-500 text-white cursor-pointer hover:scale-105 transition-transform shadow-md" data-hex="#10b981">
+            <div class="font-extrabold">Cyber Mint</div>
+            <div class="text-[10px] opacity-80 font-mono">#10b981</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Soft Rounded Geometry Specs -->
+      <div class="space-y-3 pt-2">
+        <h4 class="font-display font-bold text-sm text-white uppercase tracking-wider">Soft Rounded Geometry Principles</h4>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+          <div class="p-3.5 rounded-[28px] bg-white/5 border border-white/10">
+            <div class="font-bold text-white">Squircle Cards</div>
+            <div class="text-[11px] text-slate-400 mt-1">`border-radius: 28px` with 28px backdrop blur and micro-borders.</div>
+          </div>
+          <div class="p-3.5 rounded-full bg-white/5 border border-white/10">
+            <div class="font-bold text-white">Pill Badges</div>
+            <div class="text-[11px] text-slate-400 mt-1">`border-radius: 9999px` tactile bouncy buttons.</div>
+          </div>
+          <div class="p-3.5 rounded-3xl bg-white/5 border border-white/10">
+            <div class="font-bold text-white">Living AI Orb</div>
+            <div class="text-[11px] text-slate-400 mt-1">Organic CSS morphing radial sphere with particle rings.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Typography System -->
+      <div class="space-y-3 pt-2">
+        <h4 class="font-display font-bold text-sm text-white uppercase tracking-wider">Typography Hierarchy</h4>
+        <div class="space-y-2 text-xs">
+          <div class="flex items-center justify-between p-2.5 rounded-2xl bg-white/5 border border-white/5">
+            <span class="font-display font-extrabold text-base text-white">Outfit (Display & Headings)</span>
+            <span class="text-slate-400 font-mono">Weight: 700 - 900</span>
+          </div>
+          <div class="flex items-center justify-between p-2.5 rounded-2xl bg-white/5 border border-white/5">
+            <span class="font-body font-medium text-slate-200">Plus Jakarta Sans (Body & UI Interface)</span>
+            <span class="text-slate-400 font-mono">Weight: 400 - 600</span>
+          </div>
+          <div class="flex items-center justify-between p-2.5 rounded-2xl bg-white/5 border border-white/5">
+            <span class="font-mono text-violet-400">JetBrains Mono (Code & Data Telemetry)</span>
+            <span class="text-slate-400 font-mono">Weight: 400 - 500</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       VISUAL CONCEPT MOCKUP MODAL
+       ========================================================================== -->
+  <div id="mockup-modal" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-md items-center justify-center p-4">
+    <div class="squircle-card max-w-4xl w-full max-h-[92vh] overflow-y-auto p-6 bg-[#0d0f19] border-2 border-violet-500/50 shadow-2xl space-y-4 animate-in zoom-in-95 duration-200 text-white">
+      
+      <div class="flex items-center justify-between pb-3 border-b border-white/10">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-violet-600 text-white flex items-center justify-center shadow-md">
+            <i data-lucide="image" class="w-4 h-4"></i>
+          </div>
+          <div>
+            <h3 class="font-display font-extrabold text-lg text-white">LUMINA — Next-Gen AI Concept Mockup</h3>
+            <p class="text-[11px] text-slate-400">High-fidelity visual design direction & aesthetic reference.</p>
+          </div>
+        </div>
+        <button id="close-mockup-modal-btn" class="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors border border-white/5">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <div class="rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-black">
+        <img src="assets/images/lumina_dark_theme.jpg" alt="Lumina Next-Gen AI Assistant UI Dark Concept" class="w-full h-auto object-cover">
+      </div>
+
+      <div class="p-3 rounded-xl bg-white/5 border border-white/10 text-xs text-slate-300 flex items-center justify-between">
+        <span>✨ Visual style: Playful & vibrant with bold colors and soft rounded geometry (Obsidian Dark)</span>
+        <button id="view-interactive-screens-btn" class="px-3 py-1.5 rounded-full bg-gradient-to-r from-violet-600 to-pink-500 text-white font-bold text-xs shadow-md shadow-violet-600/30">
+          Explore Live Code Implementation
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Interactive JavaScript Engine -->
+  <script src="js/ai-ui.js"></script>
+</body>
+</html>
